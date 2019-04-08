@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using ThetaECommerce.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ThetaECommerce.Models;
 
 namespace ThetaECommerce
 {
@@ -38,6 +39,14 @@ namespace ThetaECommerce
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddDbContext<thetaecommercedbContext>(options =>
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("OurCS")));
+
+
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -70,7 +79,7 @@ namespace ThetaECommerce
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Categories}/{action=Index}/{id?}");
             });
         }
     }
