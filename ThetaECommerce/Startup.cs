@@ -51,6 +51,9 @@ namespace ThetaECommerce
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -74,12 +77,12 @@ namespace ThetaECommerce
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Categories}/{action=Index}/{id?}");
+                    template: "{controller=Systemusers}/{action=Login}/{id?}");
             });
         }
     }

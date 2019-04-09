@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,23 +10,22 @@ using ThetaECommerce.Models;
 
 namespace ThetaECommerce.Controllers
 {
-    public class CategoriesController : Controller
+    public class SystemusersController : Controller
     {
         private readonly thetaecommercedbContext _context;
 
-        public CategoriesController(thetaecommercedbContext context)
+        public SystemusersController(thetaecommercedbContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: Systemusers
         public async Task<IActionResult> Index()
         {
-            ViewBag.LLT = Request.Cookies["LLT"].ToString();
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Systemusers.ToListAsync());
         }
 
-        // GET: Categories/Details/5
+        // GET: Systemusers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace ThetaECommerce.Controllers
                 return NotFound();
             }
 
-            var categories = await _context.Categories
+            var systemusers = await _context.Systemusers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categories == null)
+            if (systemusers == null)
             {
                 return NotFound();
             }
 
-            return View(categories);
+            return View(systemusers);
         }
 
-        // GET: Categories/Create
+        // GET: Systemusers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Systemusers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Status,ParentId,Discount,Discountexpiry,MetaTitle,MetaDescription,MetaKeyword,Images,Extras,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate")] Categories categories)
+        public async Task<IActionResult> Create([Bind("Id,Name,Username,Password,ProfilePicture,Contact,Email,Role,Status,Gender,Address,Extras,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate")] Systemusers systemusers)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categories);
+                _context.Add(systemusers);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categories);
+            return View(systemusers);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Systemusers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace ThetaECommerce.Controllers
                 return NotFound();
             }
 
-            var categories = await _context.Categories.FindAsync(id);
-            if (categories == null)
+            var systemusers = await _context.Systemusers.FindAsync(id);
+            if (systemusers == null)
             {
                 return NotFound();
             }
-            return View(categories);
+            return View(systemusers);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Systemusers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Status,ParentId,Discount,Discountexpiry,MetaTitle,MetaDescription,MetaKeyword,Images,Extras,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate")] Categories categories)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Username,Password,ProfilePicture,Contact,Email,Role,Status,Gender,Address,Extras,CreatedBy,CreatedDate,ModifiedBy,ModifiedDate")] Systemusers systemusers)
         {
-            if (id != categories.Id)
+            if (id != systemusers.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ThetaECommerce.Controllers
             {
                 try
                 {
-                    _context.Update(categories);
+                    _context.Update(systemusers);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoriesExists(categories.Id))
+                    if (!SystemusersExists(systemusers.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace ThetaECommerce.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categories);
+            return View(systemusers);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Systemusers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,65 @@ namespace ThetaECommerce.Controllers
                 return NotFound();
             }
 
-            var categories = await _context.Categories
+            var systemusers = await _context.Systemusers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (categories == null)
+            if (systemusers == null)
             {
                 return NotFound();
             }
 
-            return View(categories);
+            return View(systemusers);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Systemusers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categories = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(categories);
+            var systemusers = await _context.Systemusers.FindAsync(id);
+            _context.Systemusers.Remove(systemusers);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoriesExists(int id)
+        private bool SystemusersExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _context.Systemusers.Any(e => e.Id == id);
+        }
+
+
+
+[HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Login(Systemusers U)
+        {
+            Systemusers _U= _context.Systemusers.Where(abc => abc.Username == U.Username && abc.Password == U.Password).FirstOrDefault<Systemusers>();
+
+            if (_U != null)
+            {
+                HttpContext.Session.SetString("Username",_U.Username);
+                HttpContext.Session.SetString("Role", _U.Role);
+
+                Response.Cookies.Append("LLT", DateTime.Now.ToString());
+                return RedirectToAction(nameof(Index), "Categories");
+            }
+            else
+            {
+                ViewBag.Message = "Invalid Details";
+                return View();
+            }
+
+
+
+
+            return View();
         }
     }
 }

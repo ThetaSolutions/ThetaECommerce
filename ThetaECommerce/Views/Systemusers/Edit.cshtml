@@ -1,21 +1,52 @@
-﻿@model ThetaECommerce.Models.Categories
+﻿@model ThetaECommerce.Models.Systemusers
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
-<h4>Categories</h4>
+<h4>Systemusers</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProfilePicture" class="control-label"></label>
+                <input asp-for="ProfilePicture" class="form-control" />
+                <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contact" class="control-label"></label>
+                <input asp-for="Contact" class="form-control" />
+                <span asp-validation-for="Contact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role" class="control-label"></label>
+                <input asp-for="Role" class="form-control" />
+                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
@@ -23,39 +54,14 @@
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ParentId" class="control-label"></label>
-                <input asp-for="ParentId" class="form-control" />
-                <span asp-validation-for="ParentId" class="text-danger"></span>
+                <label asp-for="Gender" class="control-label"></label>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Discount" class="control-label"></label>
-                <input asp-for="Discount" class="form-control" />
-                <span asp-validation-for="Discount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Discountexpiry" class="control-label"></label>
-                <input asp-for="Discountexpiry" class="form-control" />
-                <span asp-validation-for="Discountexpiry" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MetaTitle" class="control-label"></label>
-                <input asp-for="MetaTitle" class="form-control" />
-                <span asp-validation-for="MetaTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MetaDescription" class="control-label"></label>
-                <input asp-for="MetaDescription" class="form-control" />
-                <span asp-validation-for="MetaDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MetaKeyword" class="control-label"></label>
-                <input asp-for="MetaKeyword" class="form-control" />
-                <span asp-validation-for="MetaKeyword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Images" class="control-label"></label>
-                <input asp-for="Images" class="form-control" />
-                <span asp-validation-for="Images" class="text-danger"></span>
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Extras" class="control-label"></label>
@@ -83,7 +89,7 @@
                 <span asp-validation-for="ModifiedDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -95,23 +101,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script>
-
-        $(function () {
-
-            $('#Name').blur(function () {
-
-                localStorage.setItem("N", $('#Name').val());
-
-
-            });
-
-            $('#Name').val(localStorage.getItem("N"));
-
-        });
-
-    </script>
-
-
 }
